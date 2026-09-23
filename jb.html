@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" manifest="cache.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>INFO SAMOUD</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background: #05070b;
+        color: #eef2f7;
+        font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
+        overflow: hidden;
+      }
+      body {
+        min-height: 100vh;
+        position: relative;
+        background:
+          radial-gradient(circle at 50% 42%, rgba(36, 88, 140, .20), transparent 30%),
+          radial-gradient(circle at 15% 85%, rgba(91, 32, 130, .18), transparent 32%),
+          linear-gradient(135deg, #05070b 0%, #0a0f18 48%, #05070b 100%);
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: .16;
+        background-image:
+          linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        background-size: 44px 44px;
+        transform: perspective(700px) rotateX(58deg) scale(1.5) translateY(22%);
+        transform-origin: center bottom;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        width: 520px;
+        height: 520px;
+        left: 50%;
+        top: 47%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1px solid rgba(95, 180, 255, .12);
+        box-shadow: 0 0 90px rgba(45, 150, 255, .08), inset 0 0 90px rgba(120, 65, 255, .05);
+        pointer-events: none;
+      }
+      .gaming-logo {
+        width: 48px; height: 48px; flex: 0 0 48px; position: relative;
+        display: grid; place-items: center; border-radius: 15px;
+        background: linear-gradient(145deg, #7c3cff, #00d4ff 55%, #19f5a5);
+        box-shadow: 0 0 24px rgba(0,212,255,.35), inset 0 0 16px rgba(255,255,255,.18);
+        transform: rotate(-3deg);
+      }
+      .gaming-logo i { font-style: normal; font-size: 25px; filter: drop-shadow(0 3px 5px rgba(0,0,0,.45)); transform: rotate(3deg); }
+      .gaming-logo span { position:absolute; top:-9px; right:-7px; color:#fff; font-size:13px; text-shadow:0 0 10px #00d4ff; }
+      .phone-top {
+        margin-left: auto; padding: 9px 13px; border-radius: 12px;
+        color: #e9faff; text-decoration:none; font-size: 12px; font-weight: 800; letter-spacing:.04em;
+        background: rgba(0,212,255,.10); border:1px solid rgba(0,212,255,.25);
+        box-shadow: 0 0 18px rgba(0,212,255,.08);
+      }
+      .phone-top:hover { background: rgba(0,212,255,.18); }
+
+      body::after {
+        content: ""; position: fixed; inset: 0; pointer-events:none; z-index:0; opacity:.16;
+        background-image: linear-gradient(rgba(0,212,255,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(124,60,255,.18) 1px, transparent 1px);
+        background-size: 52px 52px; transform: perspective(700px) rotateX(58deg) scale(1.7) translateY(22%);
+        mask-image: linear-gradient(to top, black, transparent 72%);
+      }
+
+      #brand {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding: 22px 15px 18px;
+        background: rgba(5, 8, 13, .86);
+        border-bottom: 1px solid rgba(115, 180, 255, .18);
+        box-shadow: 0 10px 35px rgba(0,0,0,.35);
+        backdrop-filter: blur(12px);
+      }
+      #brand img { display: none; }
+      #brand b {
+        font-size: clamp(24px, 4vw, 38px);
+        font-weight: 900;
+        letter-spacing: .16em;
+        color: #fff;
+        text-shadow: 0 0 18px rgba(67, 177, 255, .35);
+      }
+      #brand b::after {
+        content: "GAMING • PLAY • ENJOY";
+        display: block;
+        margin-top: 5px;
+        font-size: 9px;
+        letter-spacing: .42em;
+        font-weight: 600;
+        color: #7fa9c9;
+      }
+      #spin {
+        position: fixed;
+        z-index: 3;
+        top: 50%;
+        left: 50%;
+        width: 118px;
+        height: 72px;
+        margin: -36px 0 0 -59px;
+        border: 2px solid rgba(102, 190, 255, .55);
+        border-radius: 38px 38px 28px 28px;
+        background: linear-gradient(145deg, rgba(18, 31, 48, .95), rgba(7, 13, 23, .96));
+        box-shadow: 0 0 28px rgba(52, 164, 255, .20), inset 0 0 20px rgba(80, 120, 255, .08);
+        animation: controllerPulse 2s ease-in-out infinite;
+      }
+      #spin::before {
+        content: "+";
+        position: absolute;
+        left: 20px;
+        top: 17px;
+        font-size: 28px;
+        font-weight: 900;
+        line-height: 1;
+        color: #78c9ff;
+      }
+      #spin::after {
+        content: "••";
+        position: absolute;
+        right: 18px;
+        top: 14px;
+        font-size: 25px;
+        letter-spacing: 5px;
+        color: #c58cff;
+        transform: rotate(-20deg);
+      }
+      @keyframes controllerPulse {
+        0%,100% { transform: scale(.94); opacity: .78; box-shadow: 0 0 22px rgba(52,164,255,.15); }
+        50% { transform: scale(1.04); opacity: 1; box-shadow: 0 0 42px rgba(52,164,255,.28); }
+      }
+      #msg {
+        position: fixed;
+        z-index: 4;
+        top: calc(50% + 65px);
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: #aebed0;
+        display: none;
+      }
+      #wrap { padding: 0; position: relative; z-index: 4; }
+      #state, #out { display: none; }
+      body.done #spin { display: none; }
+      body.fail #spin { display: none; }
+      body.fail #msg { display: block; }
+      body.log #spin, body.log #msg { display: none; }
+      body.log #wrap { padding: 14px 18px; }
+      body.log #state { display: block; font-size: 22px; font-weight: 700; margin: 0 0 8px; }
+      body.log #out {
+        display: block; white-space: pre-wrap; font: 12px/1.45 Consolas, monospace;
+        background: #0b1017; border: 1px solid #243344; border-radius: 8px;
+        padding: 10px 12px; height: calc(100vh - 141px); overflow-y: auto;
+      }
+      .ok,.safe { color:#7fd0a0; }
+      .bad,.danger { color:#ff8d98; }
+      .warn { color:#d8c07f; }
+      code { color:#9fb3d0; }
+      #warn {
+        position: relative;
+        z-index: 5;
+        margin: 18px auto 0;
+        width: min(720px, calc(100% - 30px));
+        padding: 12px 16px;
+        background: linear-gradient(90deg, rgba(5,107,25,.802), rgba(5,12,18,.82));
+        color: #ffe3e5;
+        border: 1px solid rgba(255,75,90,.35);
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 13px;
+        letter-spacing: .09em;
+        line-height: 1.35;
+        text-transform: uppercase;
+        box-shadow: 0 8px 28px rgba(0,0,0,.22);
+      }
+      #warn b {
+        color: #ffffff; font-size: 16px;
+        background: none;
+        -webkit-text-fill-color: #ffffff; color: #ffffff;
+        text-shadow: 0 0 18px rgba(0,212,255,.20);
+      }
+      #foot {
+        position: fixed; z-index: 5; left: 0; right: 0; bottom: 16px;
+        text-align: center; font-size: 11px; color: #687586;
+        letter-spacing: .06em; pointer-events: none; line-height: 1.5;
+      }
+      #foot b { color: #9eabba; font-weight: 700; }
+      #foot a { color: #78a8d4; text-decoration: none; pointer-events: auto; }
+      #foot .hint { color: #56616e; font-style: italic; margin-left: 4px; }
+      @media (max-width: 520px) {
+        .phone-top { display:none; }
+        .gaming-logo { width:42px; height:42px; flex-basis:42px; }
+        #brand b { letter-spacing: .08em; }
+        #warn { font-size: 11px; }
+        #foot { font-size: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="brand">
+      <b>INFO SAMOUD</b>
+      <a class="phone-top" href="tel: 2037067/23494081"> 20 37 06 57/23 49 40 81</a>
+    </div>
+    <div id="warn">⚠ GOLDEN HEN <b>13.02 TO 13.52</b> ⚠</div>
+    <div id="spin"></div>
+    <div id="msg">Restart your console</div>
+    <div id="wrap">
+      <div id="state"></div>
+      <div id="out"></div>
+    </div>
+    <script type="module">
+      import "./jb.js?v=10";
+    </script>
+    <div id="foot">
+      <span class="creator">Créé par <b>INFO SAMOUD</b> · <a href="tel:2037067/23494081">20 370 657/2349481</a> · 
+    </div>
+  </body>
+</html>
